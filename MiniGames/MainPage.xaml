@@ -1,0 +1,44 @@
+﻿<Page
+    x:Class="MiniGames.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MiniGames"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid x:Name="MainPanel">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="MiniGames" Margin="10,10,20,20" FontWeight="Normal" FontSize="35" FontFamily="Segoe UI Light" HorizontalAlignment="Center"/>
+        <GridView Grid.Row="1" Name="Display" HorizontalAlignment="Center" VerticalAlignment="Center"
+                SelectionChanged="Display_SelectionChanged"
+                ItemsSource="{x:Bind Path=local:MainLibrary.Menus}"/>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MainPanel.(Grid.Row)" Value="1"/>
+                        <Setter Target="Display.ItemTemplate" Value="{StaticResource Large}"/>
+                        <Setter Target="Display.ItemsPanel" Value="{StaticResource LargeItems}"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Display.ItemTemplate" Value="{StaticResource Small}" />
+                        <Setter Target="Display.ItemsPanel" Value="{StaticResource SmallItems}"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</Page>
